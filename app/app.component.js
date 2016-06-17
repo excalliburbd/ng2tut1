@@ -26,11 +26,21 @@ System.register(['angular2/core', './courses.component', './authors.component'],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
+                    this.toggle = false;
                 }
+                AppComponent.prototype.glyphClass = function () {
+                    if (this.toggle === true) {
+                        return "glyphicon glyphicon-star";
+                    }
+                    return "glyphicon glyphicon-star-empty";
+                };
+                AppComponent.prototype.onClick = function () {
+                    this.toggle = !this.toggle;
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n        <h1>ng2tut1: Learning Angular 2</h1>\n        <courses>\n        </courses>\n        <authors>\n        </authors>",
+                        template: "\n        <h1>ng2tut1: Learning Angular 2</h1>\n        <courses>\n        </courses>\n        <authors>\n        </authors>\n        <h2>Star Component</h2>\n        <i [class]=\"glyphClass()\" (click)=\"onClick()\"></i>",
                         directives: [courses_component_1.CourseComponent, authors_component_1.AuthorComponent]
                     }), 
                     __metadata('design:paramtypes', [])

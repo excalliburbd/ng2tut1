@@ -11,19 +11,26 @@ import { AuthorComponent } from './authors.component';
         <authors>
         </authors>
         <h2>Star Component</h2>
-        <i [class]="glyphClass()" (click)="onClick()"></i>`,
+
+        <span [class.mega-octicon] = "true"
+              [class.octicon-thumbsdown]="!toggle"
+              [class.octicon-thumbsup]="toggle"
+              (click)="onClick()"
+        > </span>`,
     directives: [CourseComponent, AuthorComponent]
 })
 export class AppComponent {
 
+
   toggle: boolean = false;
 
-  glyphClass() {
-    if(this.toggle === true){
-      return "glyphicon glyphicon-star";
-    }
-    return "glyphicon glyphicon-star-empty";
-  }
+
+  // glyphClass() {
+  //   if(this.toggle === true){
+  //     return "glyphicon glyphicon-star";
+  //   }
+  //   return "glyphicon glyphicon-star-empty";
+  // }
 
   onClick(){
     this.toggle = !this.toggle;

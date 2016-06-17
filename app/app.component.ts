@@ -1,40 +1,52 @@
 import { Component } from 'angular2/core';
 import { CourseComponent } from './courses.component';
 import { AuthorComponent } from './authors.component';
+import { ThumbsUpComponent } from './thumbsup.component';
+import { LikeComponent } from './like.component';
+import { VoteComponent } from './vote.component';
 
 @Component({
     selector: 'my-app',
     template: `
-        <h1>ng2tut1: Learning Angular 2</h1>
+      <div class="container">
+        <div class="jumbotron">
+          <h1>ng2tut1: Learning Angular 2</h1>
+        </div>
         <courses>
         </courses>
         <authors>
         </authors>
-        <h2>Star Component</h2>
-
-        <span [class.mega-octicon] = "true"
-              [class.octicon-thumbsdown]="!toggle"
-              [class.octicon-thumbsup]="toggle"
-              (click)="onClick()"
-        > </span>`,
-    directives: [CourseComponent, AuthorComponent]
+        <thumbsup [toggle]="post.up"
+          (change)="onToggleChange($event)">
+        </thumbsup>
+        <like [liked]="post.like" [count]="post.count">
+        </like>
+        <votes [votes]="post.votes" [userVote]="post.userVote" (vote)="updateVote($event)">
+        </votes>
+      </div>`,
+    directives: [CourseComponent,
+                AuthorComponent,
+                ThumbsUpComponent,
+                LikeComponent,
+                VoteComponent]
 })
 export class AppComponent {
-
-
-  toggle: boolean = false;
-
-
-  // glyphClass() {
-  //   if(this.toggle === true){
-  //     return "glyphicon glyphicon-star";
-  //   }
-  //   return "glyphicon glyphicon-star-empty";
-  // }
-
-  onClick(){
-    this.toggle = !this.toggle;
+  post = {
+    title: "Title",
+    up: false,
+    like: false,
+    count: 50,
+    votes: 34,
+    userVote: 0
   }
 
+  onToggleChange($event) {
+    console.log($event);
+  }
 
+  updateVote($event){
+    console.log($event);
+    console.log(this.post)
+    this.post.votes = parseInt($event.votes);
+  }
 }
